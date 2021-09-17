@@ -15,8 +15,8 @@ class ClientRat:
 
             while not self.quit_flag:
                 command = self.read_command()
-                # TODO - need to figure out how to send the command
-                client_socket.send(command.encode())
+                self.send_command(client_socket, command)
+                self.recv_command_output(client_socket)
 
     def read_command(self):
         user_command = input("simplePyRat# ")
@@ -26,6 +26,12 @@ class ClientRat:
             print("Exiting!")
 
         return user_command
+
+    def send_command(self, client_socket, command):
+        client_socket.send(command.encode())
+
+    def recv_command_output(self, client_socket):
+        print(client_socket.recv(1024).decode())
 
 
 def main(args):
