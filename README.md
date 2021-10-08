@@ -1,7 +1,7 @@
 # SimplePyRat
 ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/brease568/SimplePyRat)
 
-SimpleRat is a command-line based client / server paired Java Remote Access Tool (RAT). SimpleRat can be used to enable remote command execution and supports SSL encryption.
+SimpleRat is a command-line based client / server paired Python Remote Access Tool (RAT). SimpleRat can be used to enable remote command execution and supports SSL encryption.
 
 # Prerequisites
 
